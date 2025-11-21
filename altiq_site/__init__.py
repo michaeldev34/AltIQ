@@ -1,0 +1,2 @@
+"""AltIQ Django project package."""
+

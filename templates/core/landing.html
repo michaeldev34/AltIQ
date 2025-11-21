@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block title %}AltIQ - Sistemas inteligentes para la industria mexicana{% endblock %}
+
+{% block content %}
+<section class="max-w-6xl mx-auto px-4 py-20 grid gap-12 md:grid-cols-2 items-center">
+  <div>
+    <p class="text-xs tracking-[0.2em] text-slate-500 mb-3 uppercase">AltIQ / SI-piloted</p>
+    <h1 id="hero-title" class="text-4xl md:text-5xl font-semibold tracking-tight mb-5 leading-tight">
+      Inteligencia aplicada
+      <span class="block text-slate-400">a la industria mexicana.</span>
+    </h1>
+    <p class="text-slate-600 mb-6 text-sm md:text-base max-w-lg">
+      Diseñamos sistemas de datos y software que reducen paros, mejoran el flujo de caja
+      y automatizan decisiones críticas en planta, sin discursos académicos.
+    </p>
+    <ul class="space-y-2 text-sm text-slate-700 mb-8">
+      <li class="flex items-start gap-2"><span class="mt-1 h-1.5 w-1.5 rounded-full bg-slate-900"></span>Diagnósticos rápidos en menos de 4 semanas.</li>
+      <li class="flex items-start gap-2"><span class="mt-1 h-1.5 w-1.5 rounded-full bg-slate-900"></span>Pilotos medibles en planta, no en laboratorio.</li>
+      <li class="flex items-start gap-2"><span class="mt-1 h-1.5 w-1.5 rounded-full bg-slate-900"></span>Equipo SI-piloted: humanos expertos + sistemas inteligentes.</li>
+    </ul>
+    <div class="flex flex-wrap gap-3">
+      <a href="/services/" class="px-4 py-2 bg-slate-900 text-white text-sm rounded-full hover:bg-slate-800 transition">Ver paquetes</a>
+      <a href="/contact/" class="px-4 py-2 border border-slate-300 text-sm rounded-full hover:border-slate-400 transition">Pedir diagnóstico</a>
+    </div>
+  </div>
+  <div class="relative">
+    <div class="pointer-events-none absolute -inset-8 rounded-3xl bg-gradient-to-br from-slate-100 via-white to-slate-100"></div>
+    <div class="relative border border-slate-100 rounded-3xl p-6 bg-white/70 backdrop-blur-sm shadow-sm">
+      <p class="text-xs font-medium text-slate-500 mb-3">Línea de producción, Altamira</p>
+      <p class="text-sm text-slate-700 mb-4">
+        Antes: decisiones por intuición, paros no planificados y exceso de inventario.
+        <br />
+        Después de AltIQ: alertas tempranas de riesgo, programación de mantenimientos
+        basada en datos y menos capital atrapado en piso.
+      </p>
+      <div class="grid grid-cols-3 gap-3 text-xs text-slate-600">
+        <div>
+          <p class="text-[10px] uppercase tracking-wide text-slate-400">Paros no planificados</p>
+          <p class="text-sm font-semibold text-emerald-600">-18%</p>
+        </div>
+        <div>
+          <p class="text-[10px] uppercase tracking-wide text-slate-400">Inventario inmovilizado</p>
+          <p class="text-sm font-semibold text-emerald-600">-23%</p>
+        </div>
+        <div>
+          <p class="text-[10px] uppercase tracking-wide text-slate-400">Tiempo de diagnóstico</p>
+          <p class="text-sm font-semibold text-emerald-600">-60%</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="max-w-6xl mx-auto px-4 pb-20">
+  <h2 class="text-xl font-semibold mb-3">Cómo empezamos a trabajar contigo</h2>
+  <div class="grid gap-6 md:grid-cols-3 text-sm text-slate-700">
+    <article class="border border-slate-100 rounded-2xl p-4 bg-slate-50/60">
+      <p class="text-xs font-semibold text-slate-500 mb-1 uppercase tracking-wide">01 / Diagnóstico</p>
+      <h3 class="font-semibold mb-1">Mapa rápido de cuellos de botella</h3>
+      <p>Analizamos datos que ya tienes (ERP, hojas de cálculo, sensores) y mapeamos
+      dónde se pierden horas y flujo de caja.</p>
+    </article>
+    <article class="border border-slate-100 rounded-2xl p-4">
+      <p class="text-xs font-semibold text-slate-500 mb-1 uppercase tracking-wide">02 / Piloto en planta</p>
+      <h3 class="font-semibold mb-1">Caso medible, no presentación</h3>
+      <p>Probamos una solución en una línea, sucursal o familia de productos con metas
+      claras y tablero simple para tu equipo.</p>
+    </article>
+    <article class="border border-slate-100 rounded-2xl p-4">
+      <p class="text-xs font-semibold text-slate-500 mb-1 uppercase tracking-wide">03 / Escalamiento</p>
+      <h3 class="font-semibold mb-1">De piloto a estándar operativo</h3>
+      <p>Convertimos el piloto en parte de la operación diaria, con acompañamiento y
+      entrenamiento a tu gente.</p>
+    </article>
+  </div>
+</section>
+{% endblock %}
+

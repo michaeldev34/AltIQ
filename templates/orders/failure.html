@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Pago no completado - AltIQ{% endblock %}
+
+{% block content %}
+<section class="max-w-2xl mx-auto px-4 py-16 text-center">
+  <h1 class="text-2xl font-semibold mb-4">Hubo un problema con tu pago</h1>
+  <p class="text-sm text-slate-600 mb-4">
+    El pago no se pudo completar. Puedes intentar nuevamente o escribirnos para recibir ayuda.
+  </p>
+  <div class="flex justify-center gap-3 mt-4">
+    <a href="/services/" class="px-4 py-2 text-sm rounded-full border border-slate-300">Volver a servicios</a>
+    <a href="/contact/" class="px-4 py-2 text-sm rounded-full bg-slate-900 text-white">Contactar a AltIQ</a>
+  </div>
+</section>
+{% endblock %}
+

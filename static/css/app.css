@@ -1,0 +1,41 @@
+/* Placeholder Tailwind build output for AltIQ.
+ * Real Tailwind pipeline will replace this later.
+ */
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+}
+
+/* Simple custom cursor + subtle background helpers; the heavy lifting will
+ * come from GSAP/anime/three.js later.
+ */
+
+.cursor-dot {
+  position: fixed;
+  z-index: 50;
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: #020617;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+}
+
+.cursor-ring {
+  position: fixed;
+  z-index: 40;
+  width: 32px;
+  height: 32px;
+  border-radius: 9999px;
+  border: 1px solid rgba(15, 23, 42, 0.35);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  transition: width 0.18s ease, height 0.18s ease, border-color 0.18s ease;
+}
+
+.cursor-ring--active {
+  width: 44px;
+  height: 44px;
+  border-color: rgba(15, 23, 42, 0.7);
+}
+
