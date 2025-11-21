@@ -10,23 +10,23 @@
       Inteligencia aplicada
       <span class="block text-slate-400">a la industria mexicana.</span>
     </h1>
-    <p class="text-slate-600 mb-6 text-sm md:text-base max-w-lg">
+    <p id="hero-lead" class="text-slate-600 mb-6 text-sm md:text-base max-w-lg">
       Diseñamos sistemas de datos y software que reducen paros, mejoran el flujo de caja
       y automatizan decisiones críticas en planta, sin discursos académicos.
     </p>
-    <ul class="space-y-2 text-sm text-slate-700 mb-8">
+    <ul id="hero-bullets" class="space-y-2 text-sm text-slate-700 mb-8">
       <li class="flex items-start gap-2"><span class="mt-1 h-1.5 w-1.5 rounded-full bg-slate-900"></span>Diagnósticos rápidos en menos de 4 semanas.</li>
       <li class="flex items-start gap-2"><span class="mt-1 h-1.5 w-1.5 rounded-full bg-slate-900"></span>Pilotos medibles en planta, no en laboratorio.</li>
       <li class="flex items-start gap-2"><span class="mt-1 h-1.5 w-1.5 rounded-full bg-slate-900"></span>Equipo SI-piloted: humanos expertos + sistemas inteligentes.</li>
     </ul>
     <div class="flex flex-wrap gap-3">
-      <a href="/services/" class="px-4 py-2 bg-slate-900 text-white text-sm rounded-full hover:bg-slate-800 transition">Ver paquetes</a>
-      <a href="/contact/" class="px-4 py-2 border border-slate-300 text-sm rounded-full hover:border-slate-400 transition">Pedir diagnóstico</a>
+      <a href="/services/" class="px-4 py-2 bg-slate-900 text-white text-sm rounded-full hover:bg-slate-800 transition cursor-target" data-cursor="cta">Ver paquetes</a>
+      <a href="/contact/" class="px-4 py-2 border border-slate-300 text-sm rounded-full hover:border-slate-400 transition cursor-target" data-cursor="cta">Pedir diagnóstico</a>
     </div>
   </div>
   <div class="relative">
     <div class="pointer-events-none absolute -inset-8 rounded-3xl bg-gradient-to-br from-slate-100 via-white to-slate-100"></div>
-    <div class="relative border border-slate-100 rounded-3xl p-6 bg-white/70 backdrop-blur-sm shadow-sm">
+    <div id="hero-card" class="relative border border-slate-100 rounded-3xl p-6 bg-white/70 backdrop-blur-sm shadow-sm">
       <p class="text-xs font-medium text-slate-500 mb-3">Línea de producción, Altamira</p>
       <p class="text-sm text-slate-700 mb-4">
         Antes: decisiones por intuición, paros no planificados y exceso de inventario.
@@ -75,5 +75,45 @@
     </article>
   </div>
 </section>
+  <script>
+    (function () {
+      window.addEventListener("load", function () {
+        var heroIds = ["hero-lead", "hero-bullets", "hero-card"];
+        var elements = heroIds
+          .map(function (id) { return document.getElementById(id); })
+          .filter(function (el) { return !!el; });
+
+        elements.forEach(function (el, index) {
+          el.style.opacity = "0";
+          el.style.transform = "translateY(16px)";
+          el.style.transition = "opacity 0.6s ease-out, transform 0.6s ease-out";
+          el.style.transitionDelay = (index * 90) + "ms";
+        });
+
+        window.requestAnimationFrame(function () {
+          elements.forEach(function (el) {
+            el.style.opacity = "1";
+            el.style.transform = "translateY(0)";
+          });
+        });
+
+        var ring = document.getElementById("cursor-ring");
+        if (ring) {
+          var targets = document.querySelectorAll('[data-cursor="cta"]');
+          if (targets && targets.length) {
+            targets.forEach(function (el) {
+              el.addEventListener("mouseenter", function () {
+                ring.classList.add("cursor-ring--active");
+              });
+              el.addEventListener("mouseleave", function () {
+                ring.classList.remove("cursor-ring--active");
+              });
+            });
+          }
+        }
+      });
+    })();
+  </script>
+
 {% endblock %}
 

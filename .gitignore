@@ -24,7 +24,7 @@ media/
 .DS_Store
 Thumbs.db
 
-# Node / front-end (for later tooling)
+# Node / front-end
 node_modules/
 .dist/
 .build/

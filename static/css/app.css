@@ -30,7 +30,14 @@ body {
   border: 1px solid rgba(15, 23, 42, 0.35);
   pointer-events: none;
   transform: translate(-50%, -50%);
-  transition: width 0.18s ease, height 0.18s ease, border-color 0.18s ease;
+  transition: width 0.18s ease, height 0.18s ease, border-color 0.18s ease, background-color 0.18s ease;
+}
+
+.cursor-ring--active {
+  width: 40px;
+  height: 40px;
+  border-color: rgba(15, 23, 42, 0.8);
+  background-color: rgba(15, 23, 42, 0.04);
 }
 
 .cursor-ring--active {
