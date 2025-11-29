@@ -19,10 +19,13 @@
       <li class="flex items-start gap-2"><span class="mt-1 h-1.5 w-1.5 rounded-full bg-slate-900"></span>Pilotos medibles en planta, no en laboratorio.</li>
       <li class="flex items-start gap-2"><span class="mt-1 h-1.5 w-1.5 rounded-full bg-slate-900"></span>Equipo SI-piloted: humanos expertos + sistemas inteligentes.</li>
     </ul>
-    <div class="flex flex-wrap gap-3">
-      <a href="/services/" class="px-4 py-2 bg-slate-900 text-white text-sm rounded-full hover:bg-slate-800 transition cursor-target" data-cursor="cta">Ver paquetes</a>
-      <a href="/contact/" class="px-4 py-2 border border-slate-300 text-sm rounded-full hover:border-slate-400 transition cursor-target" data-cursor="cta">Pedir diagnóstico</a>
-    </div>
+    <div class="flex flex-wrap gap-3 items-center">
+	      <a href="/services/" class="px-4 py-2 bg-slate-900 text-white text-sm rounded-full hover:bg-slate-800 transition cursor-target" data-cursor="cta">Ver paquetes</a>
+	      <a href="/contact/" class="px-4 py-2 border border-slate-300 text-sm rounded-full hover:border-slate-400 transition cursor-target" data-cursor="cta">Pedir diagnóstico</a>
+	      <a href="{% url 'account_signup' %}" class="text-xs text-slate-500 underline underline-offset-4">
+	        Crear cuenta / Entrar
+	      </a>
+	    </div>
   </div>
   <div class="relative">
     <div class="pointer-events-none absolute -inset-8 rounded-3xl bg-gradient-to-br from-slate-100 via-white to-slate-100"></div>
