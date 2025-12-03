@@ -9,3 +9,6 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "altiq_site.settings")
 
 application = get_wsgi_application()
 
+# Vercel requires 'app' variable
+app = application
+
