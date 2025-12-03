@@ -1,48 +1,345 @@
-/* Placeholder Tailwind build output for AltIQ.
- * Real Tailwind pipeline will replace this later.
- */
+/* ==========================================================================
+   AltIQ App Styles
 
-body {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+   Custom styles that complement the Tailwind component system.
+   Includes: custom cursor, scroll animations, micro-interactions.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   CUSTOM CURSOR
+
+   Dot follows mouse precisely, ring follows with easing for organic feel.
+   Expands on CTA hover, hides on touch devices.
+   -------------------------------------------------------------------------- */
+
+@media (pointer: fine) {
+  .cursor-dot {
+    position: fixed;
+    z-index: 9999;
+    width: 6px;
+    height: 6px;
+    border-radius: 9999px;
+    background: #0f172a;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    mix-blend-mode: difference;
+  }
+
+  .cursor-ring {
+    position: fixed;
+    z-index: 9998;
+    width: 32px;
+    height: 32px;
+    border-radius: 9999px;
+    border: 1.5px solid rgba(15, 23, 42, 0.25);
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    transition:
+      width 0.2s cubic-bezier(0.23, 1, 0.32, 1),
+      height 0.2s cubic-bezier(0.23, 1, 0.32, 1),
+      border-color 0.2s ease,
+      background-color 0.2s ease,
+      opacity 0.2s ease;
+  }
+
+  .cursor-ring--active {
+    width: 48px;
+    height: 48px;
+    border-color: rgba(15, 23, 42, 0.5);
+    background-color: rgba(15, 23, 42, 0.03);
+  }
+
+  .cursor-ring--hidden {
+    opacity: 0;
+    width: 16px;
+    height: 16px;
+  }
+
+  /* Magnetic effect target */
+  .cursor-magnetic {
+    transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+  }
 }
 
-/* Simple custom cursor + subtle background helpers; the heavy lifting will
- * come from GSAP/anime/three.js later.
- */
+/* Hide custom cursor on touch devices */
+@media (pointer: coarse) {
+  .cursor-dot,
+  .cursor-ring {
+    display: none !important;
+  }
+}
 
-.cursor-dot {
-  position: fixed;
-  z-index: 50;
-  width: 8px;
-  height: 8px;
+/* --------------------------------------------------------------------------
+   SCROLL-TRIGGERED ANIMATIONS
+
+   Elements start hidden, become visible when scrolled into view.
+   Controlled by JS (IntersectionObserver or GSAP ScrollTrigger).
+   -------------------------------------------------------------------------- */
+
+[data-animate] {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+}
+
+[data-animate].is-visible {
+  opacity: 1;
+  transform: translateY(0) translateX(0);
+}
+
+[data-animate="fade"],
+[data-animate="fade-up"] {
+  transform: translateY(30px);
+}
+
+[data-animate="fade-left"] {
+  transform: translateX(30px);
+}
+
+[data-animate="fade-right"] {
+  transform: translateX(-30px);
+}
+
+[data-animate="scale"] {
+  transform: scale(0.95);
+}
+
+[data-animate="scale"].is-visible {
+  transform: scale(1);
+}
+
+/* Delay support */
+[data-delay="100"] { transition-delay: 100ms; }
+[data-delay="200"] { transition-delay: 200ms; }
+[data-delay="300"] { transition-delay: 300ms; }
+[data-delay="400"] { transition-delay: 400ms; }
+[data-delay="500"] { transition-delay: 500ms; }
+
+/* Stagger delays for sequential reveals */
+[data-stagger="1"] { transition-delay: 0ms; }
+[data-stagger="2"] { transition-delay: 80ms; }
+[data-stagger="3"] { transition-delay: 160ms; }
+[data-stagger="4"] { transition-delay: 240ms; }
+[data-stagger="5"] { transition-delay: 320ms; }
+[data-stagger="6"] { transition-delay: 400ms; }
+
+/* --------------------------------------------------------------------------
+   HERO ENTRANCE ANIMATION
+   -------------------------------------------------------------------------- */
+
+.hero-title-word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(100%);
+}
+
+.hero-title-word.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.5s ease-out, transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* --------------------------------------------------------------------------
+   BUTTON MICRO-INTERACTIONS
+   -------------------------------------------------------------------------- */
+
+.btn-magnetic {
+  position: relative;
+  transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.btn-magnetic::after {
+  content: '';
+  position: absolute;
+  inset: -8px;
   border-radius: 9999px;
-  background: #020617;
   pointer-events: none;
-  transform: translate(-50%, -50%);
 }
 
-.cursor-ring {
+/* --------------------------------------------------------------------------
+   CARD HOVER EFFECTS
+   -------------------------------------------------------------------------- */
+
+.card-hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px -8px rgba(15, 23, 42, 0.1);
+}
+
+/* --------------------------------------------------------------------------
+   LINK UNDERLINE ANIMATION
+   -------------------------------------------------------------------------- */
+
+.link-underline {
+  position: relative;
+}
+
+.link-underline::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s ease;
+}
+
+.link-underline:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* --------------------------------------------------------------------------
+   HTMX LOADING STATES
+   -------------------------------------------------------------------------- */
+
+.htmx-request .htmx-indicator {
+  opacity: 1;
+}
+
+.htmx-indicator {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+/* Disable interactions during request */
+.htmx-request {
+  pointer-events: none;
+}
+
+.htmx-request button,
+.htmx-request .btn {
+  opacity: 0.7;
+}
+
+/* --------------------------------------------------------------------------
+   SMOOTH SCROLL (for locomotive-scroll later)
+   -------------------------------------------------------------------------- */
+
+html.has-smooth-scroll {
+  overflow: hidden;
+}
+
+.smooth-scroll-container {
   position: fixed;
-  z-index: 40;
-  width: 32px;
-  height: 32px;
-  border-radius: 9999px;
-  border: 1px solid rgba(15, 23, 42, 0.35);
-  pointer-events: none;
-  transform: translate(-50%, -50%);
-  transition: width 0.18s ease, height 0.18s ease, border-color 0.18s ease, background-color 0.18s ease;
+  top: 0;
+  left: 0;
+  width: 100%;
+  will-change: transform;
 }
 
-.cursor-ring--active {
-  width: 40px;
-  height: 40px;
-  border-color: rgba(15, 23, 42, 0.8);
-  background-color: rgba(15, 23, 42, 0.04);
+/* --------------------------------------------------------------------------
+   ALPINE.JS TRANSITIONS
+   -------------------------------------------------------------------------- */
+
+[x-cloak] {
+  display: none !important;
 }
 
-.cursor-ring--active {
-  width: 44px;
-  height: 44px;
-  border-color: rgba(15, 23, 42, 0.7);
+/* Dropdown animation */
+.dropdown-enter {
+  opacity: 0;
+  transform: translateY(-8px) scale(0.95);
+}
+
+.dropdown-enter-active {
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.dropdown-enter-to {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.dropdown-leave {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.dropdown-leave-active {
+  transition: opacity 0.1s ease, transform 0.1s ease;
+}
+
+.dropdown-leave-to {
+  opacity: 0;
+  transform: translateY(-4px) scale(0.98);
+}
+
+/* Modal animation */
+.modal-overlay-enter {
+  opacity: 0;
+}
+
+.modal-overlay-enter-active {
+  transition: opacity 0.2s ease;
+}
+
+.modal-overlay-enter-to {
+  opacity: 1;
+}
+
+.modal-panel-enter {
+  opacity: 0;
+  transform: scale(0.95);
+}
+
+.modal-panel-enter-active {
+  transition: opacity 0.2s ease, transform 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.modal-panel-enter-to {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* --------------------------------------------------------------------------
+   STATS COUNTER ANIMATION
+   -------------------------------------------------------------------------- */
+
+.stat-counter {
+  font-variant-numeric: tabular-nums;
+}
+
+/* --------------------------------------------------------------------------
+   GRADIENT BACKGROUNDS
+   -------------------------------------------------------------------------- */
+
+.bg-gradient-subtle {
+  background: linear-gradient(135deg, #f8fafc 0%, #ffffff 50%, #f1f5f9 100%);
+}
+
+.bg-gradient-hero {
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(148, 163, 184, 0.15), transparent),
+    linear-gradient(to bottom, #ffffff, #f8fafc);
+}
+
+/* --------------------------------------------------------------------------
+   SELECTION STYLES
+   -------------------------------------------------------------------------- */
+
+::selection {
+  background: rgba(15, 23, 42, 0.1);
+  color: #0f172a;
+}
+
+/* --------------------------------------------------------------------------
+   FOCUS VISIBLE (accessibility)
+   -------------------------------------------------------------------------- */
+
+:focus-visible {
+  outline: 2px solid #0f172a;
+  outline-offset: 2px;
+}
+
+button:focus:not(:focus-visible),
+a:focus:not(:focus-visible) {
+  outline: none;
 }
 

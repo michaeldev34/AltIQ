@@ -14,6 +14,11 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "dev-secret-altiq-change-me")
 DEBUG = os.environ.get("DJANGO_DEBUG", "True") == "True"
 ALLOWED_HOSTS: list[str] = os.environ.get("DJANGO_ALLOWED_HOSTS", "").split() or ["*"]
 
+# Simple environment flag so we can show a visual marker in non-production
+# environments. Expected values: "main" (or "production"), "staging", "test".
+# The default is "main" which renders with **no** visual badge.
+ALTIQ_ENV = os.environ.get("ALTIQ_ENV", "main").strip() or "main"
+
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -29,12 +34,14 @@ INSTALLED_APPS = [
     "cases",
     "about",
     "contacts",
+    "newsletter",
     "orders",
     "payments",
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -57,6 +64,9 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                # Expose ALTIQ_ENV so templates can show a small env marker
+                # (e.g. STAGING / TEST) without touching production UI.
+                "core.context_processors.environment",
             ],
         },
     },
@@ -65,12 +75,13 @@ TEMPLATES = [
 WSGI_APPLICATION = "altiq_site.wsgi.application"
 ASGI_APPLICATION = "altiq_site.asgi.application"
 
-# Database: use Supabase Postgres if URL provided, otherwise SQLite for local dev.
-if os.environ.get("SUPABASE_DB_URL"):
+# Database: use DATABASE_URL (Render) or SUPABASE_DB_URL if provided, otherwise SQLite.
+database_url = os.environ.get("DATABASE_URL") or os.environ.get("SUPABASE_DB_URL")
+if database_url:
     import dj_database_url  # type: ignore
 
     DATABASES = {
-        "default": dj_database_url.parse(os.environ["SUPABASE_DB_URL"], conn_max_age=600)
+        "default": dj_database_url.parse(database_url, conn_max_age=600)
     }
 else:
     DATABASES = {
@@ -97,6 +108,10 @@ USE_TZ = True
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_DIRS = [BASE_DIR / "static"]
+
+# Use whitenoise for production, default for dev/test
+if not DEBUG:
+    STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 

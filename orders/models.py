@@ -33,7 +33,11 @@ class Order(models.Model):
     currency = models.CharField(max_length=10, default="MXN")
     amount = models.DecimalField(max_digits=10, decimal_places=2)
 
+
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="pending")
+
+    # Track whether we already sent the thank-you email with access codes
+    thank_you_email_sent = models.BooleanField(default=False)
 
     # Optional link to an authenticated user if we ever enable login.
     user = models.ForeignKey(
@@ -48,4 +52,48 @@ class Order(models.Model):
 
     def __str__(self) -> str:  # pragma: no cover
         return f"Order #{self.pk} - {self.package} - {self.status}"
+
+
+class OrderItem(models.Model):
+    """Individual line item within an Order.
+
+    This lets a single order contain multiple service packages with quantities.
+    """
+
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name="items")
+    package = models.ForeignKey(ServicePackage, on_delete=models.PROTECT, related_name="order_items")
+    quantity = models.PositiveIntegerField(default=1)
+    unit_price = models.DecimalField(max_digits=10, decimal_places=2)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["id"]
+
+    def __str__(self) -> str:  # pragma: no cover
+        return f"Item x{self.quantity} - {self.package} (order {self.order_id})"
+
+    @property
+    def subtotal(self):
+        return self.unit_price * self.quantity
+
+
+class OrderCode(models.Model):
+    """Stores a generated code per order and product category.
+
+    There should be at most one code per (order, package) pair.
+    """
+
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name="codes")
+    package = models.ForeignKey(ServicePackage, on_delete=models.PROTECT, related_name="order_codes")
+    code = models.CharField(max_length=64)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ("order", "package")
+        ordering = ["id"]
+
+    def __str__(self) -> str:  # pragma: no cover
+        return f"Code {self.code} for {self.package} (order {self.order_id})"
 

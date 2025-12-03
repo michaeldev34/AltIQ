@@ -1,81 +1,193 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}AltIQ - Sistemas inteligentes para la industria mexicana{% endblock %}
 
 {% block content %}
-<section class="max-w-6xl mx-auto px-4 py-20 grid gap-12 md:grid-cols-2 items-center">
-  <div>
-    <p class="text-xs tracking-[0.2em] text-slate-500 mb-3 uppercase">AltIQ / SI-piloted</p>
-    <h1 id="hero-title" class="text-4xl md:text-5xl font-semibold tracking-tight mb-5 leading-tight">
-      Inteligencia aplicada
-      <span class="block text-slate-400">a la industria mexicana.</span>
-    </h1>
-    <p id="hero-lead" class="text-slate-600 mb-6 text-sm md:text-base max-w-lg">
-      Diseñamos sistemas de datos y software que reducen paros, mejoran el flujo de caja
-      y automatizan decisiones críticas en planta, sin discursos académicos.
-    </p>
-    <ul id="hero-bullets" class="space-y-2 text-sm text-slate-700 mb-8">
-      <li class="flex items-start gap-2"><span class="mt-1 h-1.5 w-1.5 rounded-full bg-slate-900"></span>Diagnósticos rápidos en menos de 4 semanas.</li>
-      <li class="flex items-start gap-2"><span class="mt-1 h-1.5 w-1.5 rounded-full bg-slate-900"></span>Pilotos medibles en planta, no en laboratorio.</li>
-      <li class="flex items-start gap-2"><span class="mt-1 h-1.5 w-1.5 rounded-full bg-slate-900"></span>Equipo SI-piloted: humanos expertos + sistemas inteligentes.</li>
-    </ul>
-    <div class="flex flex-wrap gap-3 items-center">
-	      <a href="/services/" class="px-4 py-2 bg-slate-900 text-white text-sm rounded-full hover:bg-slate-800 transition cursor-target" data-cursor="cta">Ver paquetes</a>
-	      <a href="/contact/" class="px-4 py-2 border border-slate-300 text-sm rounded-full hover:border-slate-400 transition cursor-target" data-cursor="cta">Pedir diagnóstico</a>
-	      <a href="{% url 'account_signup' %}" class="text-xs text-slate-500 underline underline-offset-4">
-	        Crear cuenta / Entrar
-	      </a>
-	    </div>
+{# Hero section with animated neural network background #}
+<section class="relative min-h-[85vh] flex items-center overflow-hidden">
+  {# Animated GIF background #}
+  <div class="absolute inset-0 z-0">
+    <img
+      src="{% static 'images/neural-network-bg.gif' %}"
+      alt=""
+      class="w-full h-full object-cover opacity-30"
+      loading="eager"
+    />
+    {# Gradient overlay for readability #}
+    <div class="absolute inset-0 bg-gradient-to-br from-white/90 via-white/80 to-slate-100/70"></div>
+    {# Optional: Dark gradient at bottom for depth #}
+    <div class="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-white to-transparent"></div>
   </div>
-  <div class="relative">
-    <div class="pointer-events-none absolute -inset-8 rounded-3xl bg-gradient-to-br from-slate-100 via-white to-slate-100"></div>
-    <div id="hero-card" class="relative border border-slate-100 rounded-3xl p-6 bg-white/70 backdrop-blur-sm shadow-sm">
-      <p class="text-xs font-medium text-slate-500 mb-3">Línea de producción, Altamira</p>
-      <p class="text-sm text-slate-700 mb-4">
-        Antes: decisiones por intuición, paros no planificados y exceso de inventario.
-        <br />
-        Después de AltIQ: alertas tempranas de riesgo, programación de mantenimientos
-        basada en datos y menos capital atrapado en piso.
+
+  {# Content #}
+  <div class="relative z-10 max-w-6xl mx-auto px-4 py-20 grid gap-12 md:grid-cols-2 items-center">
+    <div>
+      <p class="text-xs tracking-[0.2em] text-slate-500 mb-3 uppercase">AltIQ / SI-piloted</p>
+      <h1 id="hero-title" class="text-4xl md:text-5xl font-semibold tracking-tight mb-5 leading-tight">
+        Inteligencia aplicada
+        <span class="block text-slate-400">a la industria mexicana.</span>
+      </h1>
+      <p id="hero-lead" class="text-slate-600 mb-6 text-sm md:text-base max-w-lg">
+        Diseñamos sistemas de datos y software que reducen paros, mejoran el flujo de caja
+        y automatizan decisiones críticas en planta, sin discursos académicos.
       </p>
-      <div class="grid grid-cols-3 gap-3 text-xs text-slate-600">
-        <div>
-          <p class="text-[10px] uppercase tracking-wide text-slate-400">Paros no planificados</p>
-          <p class="text-sm font-semibold text-emerald-600">-18%</p>
-        </div>
-        <div>
-          <p class="text-[10px] uppercase tracking-wide text-slate-400">Inventario inmovilizado</p>
-          <p class="text-sm font-semibold text-emerald-600">-23%</p>
-        </div>
-        <div>
-          <p class="text-[10px] uppercase tracking-wide text-slate-400">Tiempo de diagnóstico</p>
-          <p class="text-sm font-semibold text-emerald-600">-60%</p>
+      <ul id="hero-bullets" class="space-y-2 text-sm text-slate-700 mb-8">
+        <li class="flex items-start gap-2"><span class="mt-1 h-1.5 w-1.5 rounded-full bg-slate-900"></span>Diagnósticos rápidos en menos de 4 semanas.</li>
+        <li class="flex items-start gap-2"><span class="mt-1 h-1.5 w-1.5 rounded-full bg-slate-900"></span>Pilotos medibles en planta, no en laboratorio.</li>
+        <li class="flex items-start gap-2"><span class="mt-1 h-1.5 w-1.5 rounded-full bg-slate-900"></span>Equipo SI-piloted: humanos expertos + sistemas inteligentes.</li>
+      </ul>
+      <div class="flex flex-wrap gap-3 items-center">
+        <a href="/services/" class="px-5 py-2.5 bg-slate-900 text-white text-sm rounded-full hover:bg-slate-800 hover:shadow-lg transition-all duration-300 cursor-target" data-cursor="cta">Ver paquetes</a>
+        <a href="/contact/" class="px-5 py-2.5 border border-slate-300 text-sm rounded-full hover:border-slate-400 hover:bg-white/50 backdrop-blur-sm transition-all duration-300 cursor-target" data-cursor="cta">Pedir diagnóstico</a>
+        <button onclick="Calendly.initPopupWidget({url: 'https://calendly.com/miguelcvant/30min'});return false;" class="px-5 py-2.5 bg-emerald-600 text-white text-sm rounded-full hover:bg-emerald-700 hover:shadow-lg transition-all duration-300 cursor-target inline-flex items-center gap-2" data-cursor="cta">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+          </svg>
+          Agendar llamada
+        </button>
+        <a href="{% url 'account_signup' %}" class="text-xs text-slate-500 underline underline-offset-4 hover:text-slate-700 transition-colors">
+          Crear cuenta / Entrar
+        </a>
+      </div>
+    </div>
+    <div class="relative">
+      <div class="pointer-events-none absolute -inset-8 rounded-3xl bg-gradient-to-br from-slate-100/50 via-white/30 to-slate-100/50 backdrop-blur-sm"></div>
+      <div id="hero-card" class="relative border border-slate-200/60 rounded-3xl p-6 bg-white/80 backdrop-blur-md shadow-lg shadow-slate-200/50">
+        <p class="text-xs font-medium text-slate-500 mb-3">Línea de producción, Altamira</p>
+        <p class="text-sm text-slate-700 mb-4">
+          Antes: decisiones por intuición, paros no planificados y exceso de inventario.
+          <br />
+          Después de AltIQ: alertas tempranas de riesgo, programación de mantenimientos
+          basada en datos y menos capital atrapado en piso.
+        </p>
+        <div class="grid grid-cols-3 gap-3 text-xs text-slate-600">
+          <div>
+            <p class="text-[10px] uppercase tracking-wide text-slate-400">Paros no planificados</p>
+            <p class="text-sm font-semibold text-emerald-600">-18%</p>
+          </div>
+          <div>
+            <p class="text-[10px] uppercase tracking-wide text-slate-400">Inventario inmovilizado</p>
+            <p class="text-sm font-semibold text-emerald-600">-23%</p>
+          </div>
+          <div>
+            <p class="text-[10px] uppercase tracking-wide text-slate-400">Tiempo de diagnóstico</p>
+            <p class="text-sm font-semibold text-emerald-600">-60%</p>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="max-w-6xl mx-auto px-4 pb-20">
+<section class="max-w-6xl mx-auto px-4 pb-20" data-animate="fade-up">
   <h2 class="text-xl font-semibold mb-3">Cómo empezamos a trabajar contigo</h2>
   <div class="grid gap-6 md:grid-cols-3 text-sm text-slate-700">
-    <article class="border border-slate-100 rounded-2xl p-4 bg-slate-50/60">
+    <article class="border border-slate-100 rounded-2xl p-4 bg-slate-50/60 hover:shadow-md hover:-translate-y-1 transition-all duration-300" data-animate="fade-up" data-delay="100">
       <p class="text-xs font-semibold text-slate-500 mb-1 uppercase tracking-wide">01 / Diagnóstico</p>
       <h3 class="font-semibold mb-1">Mapa rápido de cuellos de botella</h3>
       <p>Analizamos datos que ya tienes (ERP, hojas de cálculo, sensores) y mapeamos
       dónde se pierden horas y flujo de caja.</p>
     </article>
-    <article class="border border-slate-100 rounded-2xl p-4">
+    <article class="border border-slate-100 rounded-2xl p-4 hover:shadow-md hover:-translate-y-1 transition-all duration-300" data-animate="fade-up" data-delay="200">
       <p class="text-xs font-semibold text-slate-500 mb-1 uppercase tracking-wide">02 / Piloto en planta</p>
       <h3 class="font-semibold mb-1">Caso medible, no presentación</h3>
       <p>Probamos una solución en una línea, sucursal o familia de productos con metas
       claras y tablero simple para tu equipo.</p>
     </article>
-    <article class="border border-slate-100 rounded-2xl p-4">
+    <article class="border border-slate-100 rounded-2xl p-4 hover:shadow-md hover:-translate-y-1 transition-all duration-300" data-animate="fade-up" data-delay="300">
       <p class="text-xs font-semibold text-slate-500 mb-1 uppercase tracking-wide">03 / Escalamiento</p>
       <h3 class="font-semibold mb-1">De piloto a estándar operativo</h3>
       <p>Convertimos el piloto en parte de la operación diaria, con acompañamiento y
       entrenamiento a tu gente.</p>
     </article>
+  </div>
+</section>
+
+{# Sección educativa: AI explicada para directores de planta y dueños de pymes #}
+<section class="max-w-6xl mx-auto px-4 pb-16" data-animate="fade-up">
+  <div class="grid gap-10 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] items-start">
+    <div data-animate="fade-right" data-delay="100">
+      <h2 class="text-xl font-semibold mb-3">¿Qué significa &quot;inteligencia aplicada&quot; en una planta mexicana?</h2>
+      <p class="text-sm text-slate-700 mb-3">
+        Hablamos de sistemas que convierten los datos que ya tienes en decisiones concretas:
+        cuándo producir, qué línea priorizar, qué mantenimiento adelantar y qué pedido sí
+        puedes prometer a tiempo.
+      </p>
+      <p class="text-sm text-slate-700 mb-3">
+        No es &quot;un chatbot de moda&quot; ni proyectos eternos. Son piezas pequeñas de software
+        conectadas a tu ERP, hojas de cálculo o sensores, que se enfocan en reducir paros,
+        merma y capital atrapado en inventario.
+      </p>
+      <ul class="text-sm text-slate-700 space-y-2">
+        <li class="flex gap-2 items-start">
+          <span class="mt-1 h-1.5 w-1.5 rounded-full bg-slate-900"></span>
+          <span><strong>Predicción de demanda y capacidad:</strong> menos urgencias en producción y menos aire en rutas.</span>
+        </li>
+        <li class="flex gap-2 items-start">
+          <span class="mt-1 h-1.5 w-1.5 rounded-full bg-slate-900"></span>
+          <span><strong>Mantenimiento inteligente:</strong> identificar máquinas en riesgo antes de que se detengan.</span>
+        </li>
+        <li class="flex gap-2 items-start">
+          <span class="mt-1 h-1.5 w-1.5 rounded-full bg-slate-900"></span>
+          <span><strong>Calidad asistida por visión:</strong> usar cámaras y modelos para detectar defectos sin saturar a los inspectores.</span>
+        </li>
+      </ul>
+    </div>
+    <aside class="border border-slate-100 rounded-2xl p-5 bg-slate-50/60 text-sm text-slate-700" data-animate="fade-left" data-delay="200">
+      <p class="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500 mb-2">AI en palabras simples</p>
+      <p class="mb-3">
+        Un sistema inteligente observa tus datos históricos y en tiempo real, aprende patrones y
+        sugiere o ejecuta acciones para acercarte a tus metas de operación.
+      </p>
+      <p class="mb-3">
+        Si hoy tus decisiones se toman en pizarrones, WhatsApp y Excel, ya tienes el insumo
+        perfecto para empezar a aplicar AI de forma gradual.</p>
+      <p class="text-xs text-slate-500">
+        En nuestra sección de <a href="/newsletter/" class="underline underline-offset-4">Newsletter</a>
+        publicamos ejemplos reales, guías básicas y checklist para que puedas evaluar si tu planta
+        está lista para un piloto.
+      </p>
+    </aside>
+  </div>
+</section>
+
+{# Sección de mini-artículos / módulos educativos #}
+<section class="max-w-6xl mx-auto px-4 pb-20" data-animate="fade-up">
+  <header class="flex items-baseline justify-between mb-4 gap-4" data-animate="fade-up">
+    <div>
+      <p class="text-[11px] font-medium tracking-[0.2em] text-slate-500 uppercase mb-1">Aprende sobre AI aplicada</p>
+      <h2 class="text-lg font-semibold text-slate-900">Contenido para que te formes criterio sin venderte humo</h2>
+    </div>
+    <a href="/newsletter/" class="hidden md:inline-flex items-center text-xs text-slate-600 underline underline-offset-4">
+      Ver más artículos
+    </a>
+  </header>
+  <div class="grid gap-4 md:grid-cols-3 text-sm text-slate-700">
+    <article class="border border-slate-100 rounded-2xl p-4 bg-white/70 hover:shadow-md hover:-translate-y-1 transition-all duration-300" data-animate="fade-up" data-delay="100">
+      <p class="text-[11px] font-semibold text-slate-500 uppercase tracking-wide mb-1">Introducción</p>
+      <h3 class="font-semibold mb-1">¿Por dónde empiezo con AI en mi empresa?</h3>
+      <p class="text-xs mb-2">Guía rápida para identificar tu primer proyecto de inteligencia aplicada sin contratar un ejército de científicos de datos.</p>
+      <p class="text-[11px] text-slate-500">Tiempo de lectura: 3 min</p>
+    </article>
+    <article class="border border-slate-100 rounded-2xl p-4 bg-white/70 hover:shadow-md hover:-translate-y-1 transition-all duration-300" data-animate="fade-up" data-delay="200">
+      <p class="text-[11px] font-semibold text-slate-500 uppercase tracking-wide mb-1">Mitos vs Realidad</p>
+      <h3 class="font-semibold mb-1">5 mitos de AI que frenan a pymes industriales</h3>
+      <p class="text-xs mb-2">"Es muy caro", "necesito millones de datos", "solo sirve para empresas grandes"… Desmontamos las creencias más comunes.</p>
+      <p class="text-[11px] text-slate-500">Tiempo de lectura: 4 min</p>
+    </article>
+    <article class="border border-slate-100 rounded-2xl p-4 bg-white/70 hover:shadow-md hover:-translate-y-1 transition-all duration-300" data-animate="fade-up" data-delay="300">
+      <p class="text-[11px] font-semibold text-slate-500 uppercase tracking-wide mb-1">ROI</p>
+      <h3 class="font-semibold mb-1">Cómo calcular el retorno de un proyecto de AI</h3>
+      <p class="text-xs mb-2">Fórmula simple para estimar ahorros y ganancias antes de invertir un peso, con ejemplos de manufactura.</p>
+      <p class="text-[11px] text-slate-500">Tiempo de lectura: 5 min</p>
+    </article>
+  </div>
+
+  <div class="mt-4 md:hidden">
+    <a href="/newsletter/" class="inline-flex items-center text-xs text-slate-600 underline underline-offset-4">
+      Ver más artículos en el Newsletter
+    </a>
   </div>
 </section>
   <script>

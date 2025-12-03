@@ -2,8 +2,242 @@
 @tailwind components;
 @tailwind utilities;
 
-/* AltIQ base tweaks */
-body {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+/* ==========================================================================
+   AltIQ Component System
+
+   A Tailwind-based design system for a sophisticated, corporate, tech-forward
+   B2B site. Dark-mode ready, minimalist, with strong typography and subtle
+   micro-interactions.
+   ========================================================================== */
+
+@layer base {
+  body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+  }
+}
+
+@layer components {
+  /* --------------------------------------------------------------------------
+     BUTTONS
+     -------------------------------------------------------------------------- */
+  .btn {
+    @apply inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-full transition-all duration-200 ease-out;
+  }
+  .btn-primary {
+    @apply bg-slate-900 text-white hover:bg-slate-800 active:scale-[0.98];
+  }
+  .btn-secondary {
+    @apply border border-slate-300 text-slate-700 hover:border-slate-400 hover:bg-slate-50 active:scale-[0.98];
+  }
+  .btn-ghost {
+    @apply text-slate-600 hover:text-slate-900 hover:bg-slate-100;
+  }
+  .btn-sm {
+    @apply px-3 py-1.5 text-xs;
+  }
+  .btn-lg {
+    @apply px-6 py-3 text-base;
+  }
+
+  /* --------------------------------------------------------------------------
+     CARDS
+     -------------------------------------------------------------------------- */
+  .card {
+    @apply border border-slate-100 rounded-2xl p-4 bg-white/80 backdrop-blur-sm;
+  }
+  .card-elevated {
+    @apply shadow-sm hover:shadow-md transition-shadow duration-300;
+  }
+  .card-interactive {
+    @apply hover:-translate-y-0.5 hover:border-slate-200 transition-all duration-300;
+  }
+
+  /* --------------------------------------------------------------------------
+     SECTION LAYOUTS
+     -------------------------------------------------------------------------- */
+  .section {
+    @apply max-w-6xl mx-auto px-4 py-12 md:py-16;
+  }
+  .section-hero {
+    @apply max-w-6xl mx-auto px-4 py-16 md:py-24;
+  }
+  .section-tight {
+    @apply max-w-6xl mx-auto px-4 py-8 md:py-12;
+  }
+
+  /* --------------------------------------------------------------------------
+     TYPOGRAPHY
+     -------------------------------------------------------------------------- */
+  .heading-xl {
+    @apply text-4xl md:text-5xl font-semibold tracking-tight leading-tight;
+  }
+  .heading-lg {
+    @apply text-2xl md:text-3xl font-semibold tracking-tight;
+  }
+  .heading-md {
+    @apply text-xl md:text-2xl font-semibold tracking-tight;
+  }
+  .heading-sm {
+    @apply text-lg font-semibold;
+  }
+  .label-sm {
+    @apply text-[11px] font-medium tracking-[0.18em] uppercase text-slate-500;
+  }
+  .label-xs {
+    @apply text-[10px] font-medium tracking-[0.2em] uppercase text-slate-400;
+  }
+  .prose-body {
+    @apply text-sm md:text-base text-slate-600 leading-relaxed;
+  }
+
+  /* --------------------------------------------------------------------------
+     FORM ELEMENTS
+     -------------------------------------------------------------------------- */
+  .input {
+    @apply w-full px-3 py-2.5 border border-slate-200 rounded-lg text-sm bg-white
+           placeholder:text-slate-400
+           focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400
+           transition-colors duration-200;
+  }
+  .input-error {
+    @apply border-rose-300 focus:ring-rose-100 focus:border-rose-400;
+  }
+  .select {
+    @apply w-full px-3 py-2.5 border border-slate-200 rounded-lg text-sm bg-white
+           focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400
+           transition-colors duration-200;
+  }
+  .checkbox {
+    @apply h-4 w-4 rounded border-slate-300 text-slate-900 focus:ring-slate-500;
+  }
+  .form-label {
+    @apply block text-sm font-medium text-slate-700 mb-1;
+  }
+  .form-hint {
+    @apply text-xs text-slate-500 mt-1;
+  }
+  .form-error {
+    @apply text-xs text-rose-600 mt-1;
+  }
+
+  /* --------------------------------------------------------------------------
+     BADGES & PILLS
+     -------------------------------------------------------------------------- */
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+  .badge-default {
+    @apply bg-slate-100 text-slate-700;
+  }
+  .badge-primary {
+    @apply bg-slate-900 text-white;
+  }
+  .badge-success {
+    @apply bg-emerald-50 text-emerald-700 border border-emerald-200;
+  }
+  .badge-warning {
+    @apply bg-amber-50 text-amber-700 border border-amber-200;
+  }
+  .badge-error {
+    @apply bg-rose-50 text-rose-700 border border-rose-200;
+  }
+
+  /* --------------------------------------------------------------------------
+     NAVIGATION
+     -------------------------------------------------------------------------- */
+  .nav-link {
+    @apply text-sm text-slate-600 hover:text-slate-900 transition-colors duration-200;
+  }
+  .nav-link-active {
+    @apply text-slate-900 font-medium;
+  }
+
+  /* --------------------------------------------------------------------------
+     ALERTS & FEEDBACK
+     -------------------------------------------------------------------------- */
+  .alert {
+    @apply p-4 rounded-xl text-sm;
+  }
+  .alert-info {
+    @apply bg-slate-50 text-slate-700 border border-slate-200;
+  }
+  .alert-success {
+    @apply bg-emerald-50 text-emerald-800 border border-emerald-200;
+  }
+  .alert-warning {
+    @apply bg-amber-50 text-amber-800 border border-amber-200;
+  }
+  .alert-error {
+    @apply bg-rose-50 text-rose-800 border border-rose-200;
+  }
+
+  /* --------------------------------------------------------------------------
+     LOADING STATES (for HTMX)
+     -------------------------------------------------------------------------- */
+  .spinner {
+    @apply inline-block h-4 w-4 animate-spin rounded-full border-2 border-current border-r-transparent;
+  }
+  .skeleton {
+    @apply animate-pulse bg-slate-200 rounded;
+  }
+
+  /* --------------------------------------------------------------------------
+     STATS / METRICS
+     -------------------------------------------------------------------------- */
+  .stat-card {
+    @apply text-center;
+  }
+  .stat-value {
+    @apply text-2xl md:text-3xl font-semibold text-slate-900;
+  }
+  .stat-label {
+    @apply text-xs text-slate-500 uppercase tracking-wide mt-1;
+  }
+  .stat-change-positive {
+    @apply text-emerald-600 text-sm font-medium;
+  }
+  .stat-change-negative {
+    @apply text-rose-600 text-sm font-medium;
+  }
+}
+
+@layer utilities {
+  /* --------------------------------------------------------------------------
+     ANIMATION UTILITIES (for GSAP / scroll animations)
+     -------------------------------------------------------------------------- */
+  .fade-in-up {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  .fade-in-up.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+
+  .stagger-1 { transition-delay: 0ms; }
+  .stagger-2 { transition-delay: 80ms; }
+  .stagger-3 { transition-delay: 160ms; }
+  .stagger-4 { transition-delay: 240ms; }
+  .stagger-5 { transition-delay: 320ms; }
+
+  /* Smooth scroll behavior */
+  .scroll-smooth {
+    scroll-behavior: smooth;
+  }
+
+  /* Hide scrollbar but keep functionality */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Focus ring utility */
+  .focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-slate-900/20 focus:ring-offset-2;
+  }
 }
 

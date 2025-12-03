@@ -6,6 +6,7 @@ from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 
+from orders.emails import send_order_thank_you_email_with_codes
 from .models import Payment
 
 
@@ -41,6 +42,9 @@ def paypal_webhook(request: HttpRequest) -> HttpResponse:
 
     payment.order.status = "paid"
     payment.order.save(update_fields=["status"])
+
+    # Generate per-product codes and send the thank-you email (idempotent).
+    send_order_thank_you_email_with_codes(payment.order)
 
     return JsonResponse({"status": "ok"})
 
@@ -94,6 +98,10 @@ def coinbase_webhook(request: HttpRequest) -> HttpResponse:
     payment.raw_payload = payload
     payment.save(update_fields=["status", "raw_payload"])
     payment.order.save(update_fields=order_update_fields)
+
+    if payment.order.status == "paid":
+        # Only when payment is truly successful we generate codes & email.
+        send_order_thank_you_email_with_codes(payment.order)
 
     return JsonResponse({"status": "ok"})
 

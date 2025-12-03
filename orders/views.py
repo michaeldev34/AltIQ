@@ -3,6 +3,7 @@ from __future__ import annotations
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
 
 from services.models import ServicePackage
 from payments.models import Payment
@@ -13,7 +14,7 @@ from payments.utils import (
 )
 from .models import Order
 
-
+@login_required
 def checkout(request: HttpRequest, package_slug: str) -> HttpResponse:
     """Create an Order + Payment and redirect to PayPal or Coinbase.
 
@@ -40,6 +41,7 @@ def checkout(request: HttpRequest, package_slug: str) -> HttpResponse:
                 currency="MXN",
                 amount=package.price_mxn,
                 status="pending",
+                user=request.user if request.user.is_authenticated else None,
             )
 
             payment = Payment.objects.create(
@@ -74,8 +76,16 @@ def checkout(request: HttpRequest, package_slug: str) -> HttpResponse:
     context = {"package": package}
     return render(request, "orders/checkout.html", context)
 
+@login_required
+def cart_add(request: HttpRequest, package_slug: str) -> HttpResponse:
+    """Temporary placeholder for a real cart.
 
+    For now, "Anadir al carrito" behaves like "Comprar ahora" and simply
+    redirects into the single-package checkout flow. This keeps templates and
+    tests working while we gradually introduce a proper multi-item cart.
+    """
 
+    return redirect("orders:checkout", package_slug=package_slug)
 
 
 def checkout_success(request: HttpRequest) -> HttpResponse:

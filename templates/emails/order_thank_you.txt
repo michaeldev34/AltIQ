@@ -1,0 +1,18 @@
+Hola {{ order.customer_name }},
+
+Gracias por tu compra en AltIQ. Hemos recibido tu pago y tu pedido esta registrado
+con el numero {{ order.id }}.
+
+Estos son los codigos generados para los paquetes de este pedido:
+{% for code in codes %}
+- {{ code.package.name_es }}: {{ code.code }}
+{% endfor %}
+
+Guarda este correo: los codigos son la referencia para coordinar el trabajo con el
+equipo de AltIQ.
+
+Si algo no se ve bien o tienes dudas, responde a este correo y te ayudamos.
+
+--
+Equipo AltIQ
+

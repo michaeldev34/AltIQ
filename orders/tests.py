@@ -4,6 +4,7 @@ from unittest import mock
 
 from django.test import TestCase
 from django.urls import reverse
+from django.contrib.auth import get_user_model
 
 from services.models import ServicePackage
 from .models import Order
@@ -13,6 +14,13 @@ from payments.utils import PaymentGatewayError
 
 class CheckoutFlowTests(TestCase):
     def setUp(self) -> None:
+        User = get_user_model()
+        self.user = User.objects.create_user(
+            username="buyer",
+            email="buyer@example.com",
+            password="testpass123",
+        )
+
         self.package = ServicePackage.objects.create(
             slug="pilot-line-mx",
             name_es="Linea piloto",
@@ -31,6 +39,7 @@ class CheckoutFlowTests(TestCase):
         mock_create_paypal.return_value = ("https://paypal.test/approve", "PAYPAL-ID-123")
 
         url = reverse("orders:checkout", kwargs={"package_slug": self.package.slug})
+        self.client.login(username="buyer", password="testpass123")
         payload = {
             "customer_name": "Test User",
             "company_name": "AltIQ Test",
@@ -53,9 +62,18 @@ class CheckoutFlowTests(TestCase):
         self.assertEqual(payment.status, "pending")
         self.assertEqual(payment.provider_payment_id, "PAYPAL-ID-123")
 
+    def test_anonymous_user_is_redirected_to_login_for_checkout(self):
+        url = reverse("orders:checkout", kwargs={"package_slug": self.package.slug})
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 302)
+        # Default LOGIN_URL from django-allauth is /accounts/login/, Django appends ?next
+        self.assertIn("/accounts/login/", response["Location"])
+        self.assertIn("next=", response["Location"])
+
     @mock.patch("orders.views.create_paypal_order", side_effect=PaymentGatewayError("gateway error"))
     def test_checkout_gateway_error_sends_to_failure(self, _mock_create_paypal):
         url = reverse("orders:checkout", kwargs={"package_slug": self.package.slug})
+        self.client.login(username="buyer", password="testpass123")
         payload = {
             "customer_name": "Test User",
             "company_name": "AltIQ Test",
