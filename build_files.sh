@@ -5,6 +5,6 @@ npm install
 npm run build:css
 
 # Collect static files
-python3.11 -m pip install -r requirements.txt
-python3.11 manage.py collectstatic --noinput
+pip install -r requirements.txt
+python manage.py collectstatic --noinput
 
