@@ -110,8 +110,10 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_DIRS = [BASE_DIR / "static"]
 
 # Use whitenoise for production, default for dev/test
+# CompressedManifestStaticFilesStorage is strict and requires all files to exist
+# CompressedStaticFilesStorage is more forgiving and won't fail on missing files
 if not DEBUG:
-    STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+    STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
